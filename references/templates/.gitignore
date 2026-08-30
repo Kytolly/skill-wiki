@@ -1,0 +1,11 @@
+# 构建产物与本地环境（不提交）
+build/
+.venv/
+site/
+docs/
+*.log
+__pycache__/
+*.py[cod]
+
+# 本地笔记工具配置
+.obsidian/

@@ -1,0 +1,45 @@
+site_name: "<站点名>"
+site_description: "<一句话描述>"
+site_author: "<作者>"
+docs_dir: ../build/preview/docs
+site_dir: ../build/preview/site
+use_directory_urls: true
+repo_url: https://github.com/<OWNER>/<REPO>
+
+theme:
+  name: material
+  language: zh
+  palette:
+    scheme: default
+    primary: indigo
+    accent: indigo
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - 首页: index.md
+  # 按分级目录填写（同一分级同一目录，显示名随意、文件名=主题）：
+  # - <grade 显示名>:
+  #     - <页面标题>: <页面文件名>.md
+  # - <grade 显示名>:
+  #     - <页面标题>: <页面文件名>.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - tables
+  - toc:
+      permalink: true
