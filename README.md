@@ -1,4 +1,4 @@
-# skill-tutorial-wiki
+# skill-wiki
 
 一个 AI skill：搜集互联网领域知识，生成**新手友好的中文分级讲义**，并以 **GitHub Wiki** 方式组织成可导航、可独立访问、可持续更新的文档站点。
 
