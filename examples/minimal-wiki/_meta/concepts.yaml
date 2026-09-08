@@ -1,0 +1,11 @@
+concepts:
+- id: C01
+  name_zh: 仓库
+  name_en: Repository
+  aliases: [版本库]
+  definition_zh: 存放项目历史。
+  page: page/basics/Git是什么与第一次提交.md
+  evidence_ids: [E01]
+  figure_ids: [F01]
+  equation_ids: []
+  related: []

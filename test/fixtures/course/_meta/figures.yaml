@@ -1,0 +1,17 @@
+figures:
+- id: F01
+  caption: 选择压力示意
+  source_type: course_slide
+  source: Lecture 4
+  source_locator: slide 15 figure
+  local_asset: page/assets/images/F01.png
+  license: CC BY-NC
+  accessed_at: '2026-01-02'
+  concept_ids:
+  - C01
+  claim_ids:
+  - C01
+  explanation: 横轴是多样性，纵轴是适应度。
+  what_to_notice: 压力过大时迅速收敛。
+  related_figures: []
+  derived_from: []

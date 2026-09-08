@@ -1,0 +1,11 @@
+equations:
+- id: EQ01
+  latex: P_i = f_i / \sum_j f_j
+  source: Lecture 5
+  source_locator: 公式 3
+  concept_ids:
+  - C01
+  symbols:
+  - P_i
+  - f_i
+  explanation: 个体选中概率。

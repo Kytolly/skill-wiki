@@ -1,114 +1,128 @@
 ---
 name: skill-tutorial-wiki
-description: 搜集互联网领域知识，生成新手友好的中文分级讲义，并用 GitHub Wiki 方式组织成可导航、可独立访问、可持续更新的文档站点。支持按任务自定分级、本地 mkdocs 预览、一键发布到 GitHub Wiki，并规范配图与 Mermaid 图表。适用于构建或更新领域知识库、GitHub Wiki、分级教程、学习路线、零基础讲义等场景。
-whenToUse: 当用户想为一个领域建立教程/wiki/讲义/学习路线，或对已有 wiki 做增量更新、补全某个分级、更新过时内容时使用。
+description: 多模式、证据锚定的学习与文档 Wiki 构建器。搜集互联网/课程/项目/实验/API 知识，生成新手友好的中文分级讲义，并以 GitHub Wiki + 本地 mkdocs 预览方式组织成可导航、可追溯、可持续更新的文档站点。支持 course / project-docs / lab-handbook / technical-tutorial / research-kb / api-docs / experiment-kb / onboarding / policy-procedure / custom 等模式，落地 Claim→Evidence→Source 追踪、术语/图片/公式对象、知识图谱与覆盖度审计。适用于构建或更新领域知识库、课程讲义、项目文档、实验室守则、技术教程、研究知识库等场景。
+whenToUse: 当用户想建立一个领域的教程/讲义/wiki/知识库，或对已有 wiki 做增量更新、补全某个分级、更新过时内容；或需要证据可追溯、来源分级、术语保留、配图与公式规范、覆盖度审计时使用。
 metadata:
-  short-description: 分级讲义 + 本地预览 + GitHub Wiki 持续更新
+  short-description: 多模式证据锚定 Wiki 构建器（Evidence-Grounded）
 license: MIT
 ---
 
-# 领域知识库 Wiki 生成器
+# Multi-Mode Evidence-Grounded Learning & Documentation Wiki Builder
 
-你是一个领域知识整理者 + 技术讲师 + GitHub Wiki 维护者。你的任务：搜集互联网领域知识，把它转化成新手友好的中文分级讲义，并用"本地可预览、远端可发布"的方式组织成可导航、可持续更新的文档站点。
+你是一个领域知识整理者 + 技术讲师 + Wiki 维护者。你的任务：**搜集领域知识，重建为可追溯的分级讲义，并用“本地可预览、远端可发布”的方式组织成可导航、可持续更新的文档站点。**
 
-## 核心原则
+核心原则：**Every important knowledge claim should be traceable；Every important figure should be interpretable and traceable。** 不要把“有来源”理解成“页面底部几个 URL”，也不要把“有图”理解成“插了一张图”。
 
-1. **类比优先** — 每个概念都用生活中的事物类比。
-2. **需求驱动** — 先讲"为什么需要"，再讲"这是什么"。
-3. **真实案例** — 用读者正在接触的真实场景举例。
-4. **配图优先** — 清晰的 figure/illustration 是教程的关键；优先官方图，找不到可靠图就用 Mermaid（见 references/figure-conventions.md）。
-5. **增量构建** — 第一次不追求全部内容，按分级分阶段生成；每批质量优先于数量。
-6. **Wiki 化** — 每次产出都是页面集合，必须同步维护 Home、_Sidebar、页面互链和状态文件，并保证本地预览与发布脚本可用。
+## 第一步：区分 Wiki Mode（应用场景）
 
-## 输出约定
+Skill 入口首先判断 Wiki 的应用场景。至少支持：
 
-- 所有内容保存为 Markdown。
-- 项目结构固定为"源页面 / 脚本 / 构建产物"三分离（见 references/project-structure.md）。
-- 页面遵循 GitHub Wiki 惯例：Home.md、_Sidebar.md、_Footer.md（可选）、_META.md；分级页面放在 `page/<grade>/` 目录内。
-- 分级**不固定五级**，按任务自定（见 references/level-framework.md）。
-- 页面模板见 references/page-templates.md；命名/导航/链接/更新规则见 references/wiki-conventions.md；联网调研见 references/research-and-sources.md；配图见 references/figure-conventions.md；本地预览与远端发布见 references/build-and-publish.md。
+1. `course`（课程讲义 / Lecture Notes / Course KB）
+2. `project-docs`（项目文档 / Software Project Documentation）
+3. `lab-handbook`（实验室守则 / SOP / Safety Handbook）
+4. `technical-tutorial`（技术入门教程 / Getting Started / Learning Guide）
+5. `research-kb`（研究领域知识库 / Literature & Concept KB）
+6. `api-docs`（API / SDK / Tool Documentation）
+7. `experiment-kb`（实验记录 / Experiment KB）
+8. `onboarding`（团队 Onboarding / Internal KB）
+9. `policy-procedure`（规章制度 / Policy / Procedure）
+10. `custom`（用户自定义模式）
 
-## 工作流程（增量构建循环）
+### Mode Detection 与确认门槛
 
-必须按顺序执行，不能跳步。
+- **高置信度**：能从用户请求、已有目录、`_META.md`、`_meta/` 内容直接推断 → 自动选择。
+- **低置信度**：不要自行猜测。给用户 2–4 个最可能的 mode，每个用一句话说明内容组织方式、source policy、completeness policy、适用情况，然后**等待用户确认**。用户确认前不开始大规模生成 Wiki。
+- 确认后把 `wiki_mode` 写入 `_META.md`。
+
+详细规则见 `references/mode-detection.md`；每种模式的完整 policy 见 `references/modes/<mode>.md`。
+
+## 高等级工作流（增量构建循环）
 
 ```text
-第 1 步：确认主题与分级
-    ↓
-第 2 步：盘点现有 Wiki
-    ↓
-第 3 步：规划本批页面
-    ↓
-第 4 步：给用户确认本批计划
-    ↓
-第 5 步：联网调研本批页面
-    ↓
-第 6 步：生成页面并更新导航/状态（含本地预览可跑）
-    ↓
-第 7 步：自查与修复
-    ↓
-第 8 步：报告增量结果（含预览地址与发布命令）
+Step 1  理解用户目标
+Step 2  检测 Wiki Mode
+Step 3  若歧义：给候选 + 等确认（Confirmation Gate）
+Step 4  加载 mode-specific policies（references/modes/<mode>.md）
+Step 5  盘点/审计现有 Wiki（page/ + _meta/）
+Step 6  盘点来源（source inventory）
+Step 7  建立 Source Hierarchy
+Step 8  提取 text / terminology / claims / equations / figures / visual relationships / learning objectives|rules|interfaces
+Step 9  构建 Evidence Graph / Knowledge Graph / Figure Graph / Terminology Dictionary（_meta/*.yaml）
+Step 10 比较 Source Coverage（coverage.py）
+Step 11 规划本批页面
+Step 12 若是重大结构变更，再次确认
+Step 13 生成/更新 Wiki 页面
+Step 14 生成导航 + Home + META + _meta
+Step 15 运行 QA（validate.py）
+Step 16 修复 QA 失败
+Step 17 本地预览（serve.sh / build.py）
+Step 18 报告：页面变更、来源、证据覆盖率、图片覆盖率、术语覆盖率、未解决问题、预览地址、发布命令
 ```
 
-### 第 1 步：确认主题与分级
+## 内容与证据规则（强制）
 
-从对话推断：领域/主题、目标读者（默认零基础）、输出位置、分级方案。
+- **Claim → Evidence → Source**：每条重要知识声明都要能追踪。使用 `_meta/claims.yaml` + `_meta/evidence.yaml`。
+- **术语管理**：核心术语首次出现写 `中文（Canonical English Term, ABBR）`；保留官方英文名，中文只作辅助。见 `references/terminology.md`。
+- **图片是一等信息**：每张关键教学图必须有 Figure Object + Figure Explanation（展示什么、看哪里、每轴/节点/箭头含义、支持哪个 claim、对应哪个 concept、为何重要）。见 `references/figure-model.md`。
+- **公式有来源**：每个重要公式有 Equation Object（latex、source、symbols、explanation、worked example、common mistakes）。见 `references/equation-model.md`。
+- **来源分级**：不同 mode 使用不同 source hierarchy；来源冲突时不要自动融合，显示 Source A / Source B。Course Mode 的 Course Material 永远单独保留。见 `references/modes/course.md`。
+- **内容来源视觉标签**：📘 Source / Slides、💡 Explanation、🔍 Inference、🌐 External Reference、🧪 Example、⚠️ Outside Scope。禁止把 Explanation / Inference 写成“老师原话”。见 `references/provenance.md`。
+- **PDF/PPT 视觉**：不能只做 text extraction；按 runtime 能力处理视觉层，否则明确标记 `visual_evidence_status: unverified`。见 `references/visual-understanding.md`。
 
-- **主题**：主题不明确时，用 ask_user_question 给出 2–4 个候选主题，每个附一句话描述（覆盖范围 / 目标读者 / 难度），让用户选择；主题清晰则跳过，不啰嗦。
-- **分级**：默认"按任务自定"。判断任务的能力台阶数（一般 3–5 级），选一种命名方案（阶段式 / 能力式 / 通用五级），给出候选让用户确认。规则见 references/level-framework.md。
-- 尽量少问；只有主题、分级、目标读者或输出位置真的无法推断时才问。
-- 确认结果写入 `_META.md`：主题、读者、分级方案、输出位置、发布方式。
+## 数据模型（持久化在 `_meta/`）
 
-### 第 2 步：盘点现有 Wiki
+- `terminology.yaml`：术语索引（id / canonical_en / zh / abbreviation / aliases / definition / source_definition / first_occurrence / related_concepts）。
+- `claims.yaml`：Claim Object（id / claim / claim_type / concept_ids / evidence_ids / status / confidence）。
+- `evidence.yaml`：Evidence Object（id / source_type / source_title / source_url / source_locator / accessed_at / claim_ids / figure_ids / confidence / license / notes）。
+- `concepts.yaml`：概念 + Knowledge Graph 关系（prerequisite / derived_from / part_of / alternative_to / solves / causes / tradeoff_with / uses / represented_by / measured_by / implemented_by / related_to）。
+- `figures.yaml`：Figure Object（id / caption / source / source_locator / page_url / direct_image_url / local_asset / license / accessed_at / concept_ids / claim_ids / explanation / what_to_notice / related_figures / derived_from）。
+- `equations.yaml`：Equation Object。
+- `source-inventory.yaml` / `omissions.yaml`：覆盖度审计。
+- `status.yaml`：迁移/视觉提取状态。
 
-如果目标目录已存在 `page/Home.md`、`page/_Sidebar.md`、`page/_META.md` 或分级页面，先读取，确认：已完成哪些页面、使用哪种分级与目录、哪些过时/缺失。不存在的按全新项目处理；存在时永远增量更新，不整站重写。
+schema 与消费规则见 `references/evidence-model.md`、`references/figure-model.md`、`references/equation-model.md`、`references/knowledge-graph.md`、`references/coverage-audit.md`。
 
-### 第 3 步：规划本批页面
+## 页面与目录
 
-- 首批范围默认只做最低一级的导论：Home + _Sidebar + _META + 至少一个"领域是什么/核心术语"页 + 一个"安装/配置/跑通 demo"页 + 需要时一个"下一步学习地图"页。
-- 用户指定了范围则可扩展；每批页面数量可控，宁多轮，不要一次生成过多低质量内容。
-- 规划结果列明：本批新增/更新的页面清单、每个页面的标题、所属分级目录、预计内容。
+- 源页面在 `page/<grade>/<topic>.md`；文件名 = 主题，不带分级前缀。
+- 同一分级同一目录；导航、_Sidebar、mkdocs nav 按分级生成。
+- 特殊页：`page/Home.md`、`page/_Sidebar.md`、`page/_META.md`、`page/_Footer.md`。
+- 项目结构见 `references/project-structure.md`；页面模板与写作要求见 `references/page-templates.md`；命名/链接/更新规则见 `references/wiki-conventions.md`。
 
-### 第 4 步：给用户确认本批计划
+## 分阶段生成与更新
 
-把第 3 步页面清单给用户确认，等确认后再继续。
+- 首批默认只生成最低一级导论（主题是什么 / 核心术语 / 安装配置 / 跑通 demo / 下一步），但不同 mode 的 completeness policy 不同（course 用 source-faithful completeness；lab/policy 用 rule-complete；technical-tutorial 允许 minimal viable）。
+- 已有页面用**合并更新**，不整页覆盖；保留仍有效内容。
+- 每次更新追加页面底部“更新日志”，并在 `_META.md` changelog 追加一条。
+- 用户显式提示：继续生成下一级、补全某分级、从某级开始、更新某页到最新情况、拆分某级、按某 mode 重做。
+- 某级跨度太大时主动建议拆成子级或多个页面，不压缩内容。
 
-### 第 5 步：联网调研本批页面
+## QA / 自动检查
 
-只为本批页面调研，按 references/research-and-sources.md 执行，记录来源与访问日期。
+- 每次生成/更新后运行 `python3 script/validate.py --wiki-root .`。
+- 运行 `python3 script/coverage.py --wiki-root .` 做 Source vs Wiki 覆盖度审计。
+- 校验项包括：Mode 合规、META 完整、术语一致性、英文术语保留、缩写定义、Claim 证据覆盖、未支持 Claim 检测、Figure 解释/来源/链接、Derived Mermaid 标记、Equation 来源、死链、Sidebar/Home 完整性、Orphan concept、provenance 分离、视觉证据状态。
+- 报告分为人读（stdout / docs/qa-report.md）和机器可读（build/qa-report.json）。
+- 完整清单见 `references/qa.md`。
 
-### 第 6 步：生成页面并更新导航/状态
+## 兼容性与迁移
 
-- 按 references/page-templates.md 选择模板，逐页生成到对应 `page/<grade>/` 目录。
-- 同步更新 `_Sidebar.md`、`Home.md` 学习地图、`_META.md` 页面清单与 changelog。
-- 补齐"上一页/下一页/返回 Home"链接；页面名在文件名、_Sidebar、正文链接三处一致。
-- 生成后运行本地预览（见 references/build-and-publish.md）确认站点可访问、无死链。
+- 保留 `page/`、`script/`、`build/`、`Home.md`、`_Sidebar.md`、`_META.md`。
+- 已有 Wiki 不强制重写：读取旧 `_META`，识别 legacy，生成迁移计划，增量添加新元数据。
+- 旧页面没有 Evidence Object 时标记 `provenance: legacy-unverified`，不删除。
+- `python3 script/migrate.py --wiki-root .` 可自动创建 `_meta/` 骨架。
 
-### 第 7 步：自查与修复
+## 参考索引
 
-按底部"快速自查清单"检查：正确性、结构、完整性、Wiki 一致性、学习曲线、配图规范、预览/发布可用性。发现问题立即修复，修复后再次自查。
-
-### 第 8 步：报告增量结果
-
-报告：本批新增/更新页面、更新的导航/状态文件、关键来源与更新时间、本地预览地址、远端发布命令、下一步建议。
-
-## 持续更新规则
-
-- 已有页面用合并更新，不整页覆盖，保留仍有效内容。
-- 每次更新在页面底部"更新日志"追加一行，并在 `_META.md` changelog 追加一条。
-- 支持用户显式提示：继续生成下一级、补全某分级、从某级开始、更新某页、拆分某级。
-- 某级跨度太大时主动建议拆子级/多页，而不是压缩内容。
-
-## 快速自查清单
-
-- [ ] 主题与分级已确认并写入 _META
-- [ ] 目录结构符合 references/project-structure.md（page/ script/ build/ 分离）
-- [ ] 每页位于正确的 `page/<grade>/` 目录
-- [ ] 每个新概念都有类比或解释
-- [ ] 代码有逐行中文注释
-- [ ] 练习有 <details> 答案
-- [ ] 配图有 caption + 来源 + 访问日期；无可靠图时用 Mermaid
-- [ ] 无未解释术语或死链
-- [ ] _Sidebar 包含全部页面；Home 学习地图已更新；_META 已更新
-- [ ] 每页有上一页/下一页/返回 Home
-- [ ] 本地预览可访问；发布脚本可用
+- mode policies：`references/modes/`
+- mode detection：`references/mode-detection.md`
+- terminology：`references/terminology.md`
+- evidence：`references/evidence-model.md`
+- figure：`references/figure-model.md`
+- equation：`references/equation-model.md`
+- knowledge graph：`references/knowledge-graph.md`
+- coverage audit：`references/coverage-audit.md`
+- QA：`references/qa.md`
+- visual understanding：`references/visual-understanding.md`
+- provenance：`references/provenance.md`
+- structure / templates / publishing：`references/project-structure.md`、`references/page-templates.md`、`references/wiki-conventions.md`、`references/figure-conventions.md`、`references/research-and-sources.md`、`references/build-and-publish.md`

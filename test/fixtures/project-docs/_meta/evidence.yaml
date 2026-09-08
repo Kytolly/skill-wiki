@@ -1,0 +1,11 @@
+evidence:
+- id: E01
+  source_type: project_source
+  source_title: main.py
+  source_file: src/main.py
+  source_locator: main.py:12
+  accessed_at: '2026-01-02'
+  claim_ids:
+  - C01
+  figure_ids: []
+  confidence: high

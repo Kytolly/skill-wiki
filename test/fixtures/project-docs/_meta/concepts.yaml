@@ -1,0 +1,12 @@
+concepts:
+- id: C01
+  name_zh: 入口模块
+  name_en: Entry Module
+  aliases: []
+  definition_zh: 负责启动的模块。
+  page: page/docs/架构.md
+  evidence_ids:
+  - E01
+  figure_ids: []
+  equation_ids: []
+  related: []

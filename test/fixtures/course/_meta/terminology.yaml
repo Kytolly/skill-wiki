@@ -1,0 +1,11 @@
+terms:
+- id: T01
+  canonical_en: Selection Pressure
+  zh: 选择压力
+  abbreviation: SP
+  aliases: []
+  definition: 影响收敛与多样性的机制。
+  source_definition: 课件定义。
+  first_occurrence: page/L4/选择压力.md
+  related_concepts:
+  - C01

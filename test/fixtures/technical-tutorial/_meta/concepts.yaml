@@ -1,0 +1,12 @@
+concepts:
+- id: C01
+  name_zh: 示例协议
+  name_en: Example Protocol
+  aliases: []
+  definition_zh: 一个示例协议。
+  page: page/basics/示例页面.md
+  evidence_ids:
+  - E01
+  figure_ids: []
+  equation_ids: []
+  related: []

@@ -1,0 +1,10 @@
+claims:
+- id: C01
+  claim: 入口模块负责启动。
+  claim_type: source-derived
+  concept_ids:
+  - C01
+  evidence_ids:
+  - E01
+  status: verified
+  confidence: high

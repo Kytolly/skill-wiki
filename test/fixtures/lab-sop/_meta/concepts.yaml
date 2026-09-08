@@ -1,0 +1,12 @@
+concepts:
+- id: C01
+  name_zh: PPE
+  name_en: PPE
+  aliases: []
+  definition_zh: 个人防护装备。
+  page: page/sop/设备操作SOP.md
+  evidence_ids:
+  - E01
+  figure_ids: []
+  equation_ids: []
+  related: []

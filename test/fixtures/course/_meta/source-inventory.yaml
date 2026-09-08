@@ -1,0 +1,20 @@
+items:
+- id: S01
+  item_type: section
+  item_name: 选择压力
+  source: Lecture 4
+  expected_page: page/L4/选择压力.md
+  expect_keywords:
+  - 选择压力
+- id: S02
+  item_type: figure
+  item_name: 选择压力示意
+  source: Lecture 4
+  expected_page: page/L4/选择压力.md
+  item_marker: 'FIGURE: F01'
+- id: S03
+  item_type: equation
+  item_name: 选择概率公式
+  source: Lecture 5
+  expected_page: page/L4/选择压力.md
+  item_marker: 'EQUATION: EQ01'

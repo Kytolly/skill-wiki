@@ -1,0 +1,7 @@
+items:
+- id: S01
+  item_type: rule
+  item_name: 佩戴PPE
+  expected_page: page/sop/设备操作SOP.md
+  expect_keywords:
+  - PPE

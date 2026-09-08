@@ -1,0 +1,15 @@
+figures:
+- id: F01
+  caption: 工作区到远程仓库的流动
+  source_type: derived
+  source: Git 官方文档的 add/commit/push 概念
+  source_locator: section 1
+  local_asset: null
+  license: null
+  accessed_at: "2026-01-02"
+  concept_ids: [C01]
+  claim_ids: [C01]
+  explanation: 图展示一套本地到远程的流程；重点是 git add 进入暂存区、git commit 进入本地仓库、git push 到远程。
+  what_to_notice: 注意每个箭头代表一个 Git 命令。
+  related_figures: []
+  derived_from: [E01]

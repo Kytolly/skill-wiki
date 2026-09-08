@@ -1,0 +1,11 @@
+terms:
+- id: T01
+  canonical_en: PPE
+  zh: 个人防护装备
+  abbreviation: PPE
+  aliases: []
+  definition: 个人防护装备。
+  source_definition: 安全守则。
+  first_occurrence: page/sop/设备操作SOP.md
+  related_concepts:
+  - C01

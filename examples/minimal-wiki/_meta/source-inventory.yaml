@@ -1,0 +1,6 @@
+items:
+- id: S01
+  item_type: section
+  item_name: 安装 Git
+  expected_page: page/basics/Git是什么与第一次提交.md
+  expect_keywords: [git --version]

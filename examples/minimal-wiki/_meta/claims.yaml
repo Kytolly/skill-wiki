@@ -1,0 +1,8 @@
+claims:
+- id: C01
+  claim: 提交（Commit）把暂存区内容保存成一次快照。
+  claim_type: source-derived
+  concept_ids: [C01]
+  evidence_ids: [E01]
+  status: verified
+  confidence: high

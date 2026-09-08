@@ -1,0 +1,12 @@
+evidence:
+- id: E01
+  source_type: course_slide
+  source_title: Lecture 4
+  source_locator: slide 15
+  source_date: '2026-01-01'
+  accessed_at: '2026-01-02'
+  claim_ids:
+  - C01
+  figure_ids:
+  - F01
+  confidence: high

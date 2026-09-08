@@ -1,0 +1,10 @@
+terms:
+- id: T01
+  canonical_en: Repository
+  zh: 仓库
+  abbreviation: null
+  aliases: [版本库]
+  definition: 存放项目历史与工作区的地方。
+  source_definition: Git 官方文档描述。
+  first_occurrence: page/basics/Git是什么与第一次提交.md
+  related_concepts: [C01]

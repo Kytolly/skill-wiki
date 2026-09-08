@@ -1,0 +1,11 @@
+terms:
+- id: T01
+  canonical_en: Entry Module
+  zh: 入口模块
+  abbreviation: null
+  aliases: []
+  definition: 负责启动的模块。
+  source_definition: 代码注释。
+  first_occurrence: page/docs/架构.md
+  related_concepts:
+  - C01

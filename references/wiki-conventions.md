@@ -1,32 +1,35 @@
 # GitHub Wiki 组织规范
 
-本文件定义页面命名、导航、链接和更新规则。目录结构见 references/project-structure.md。
+本文件定义页面命名、导航、链接、provenance 与更新规则。目录结构与元数据见 references/project-structure.md。
 
-## 目录结构（源文件在 page/ 内）
+## 目录结构（源文件在 page/ 内，元数据在 _meta/ 内）
 
 ```text
 page/
-├── Home.md              领域总览 + 分级学习地图
-├── _Sidebar.md          完整导航树
-├── _Footer.md           版权/反馈（可选）
-├── _META.md             Wiki 状态：主题、分级、页面清单、changelog
-└── <grade>/             同一分级同一目录
-    └── <topic>.md       页面：文件名=主题，不带分级前缀
+├── Home.md             领域总览 + 知识地图
+├── _Sidebar.md         完整导航树
+├── _Footer.md          版权/反馈（可选）
+├── _META.md            状态：mode、受众、policy、页面清单、changelog
+└── <grade>/<topic>.md
+_meta/
+├── terminology.yaml / evidence.yaml / claims.yaml / concepts.yaml
+├── figures.yaml / equations.yaml / source-inventory.yaml / omissions.yaml
+└── status.yaml
 ```
 
 ## 页面命名规则
 
-- 分级目录名（grade slug）：ASCII 小写短横线，如 `basics`、`02-advanced`、`L0`。
-- 页面文件名：主题的简短中文/英文，如 `Git是什么与第一次提交.md`；**不带分级前缀**（目录已表达分级）。
-- `page/` 内所有页面 basename 必须唯一（本地预览与发布都会拍平）。
-- 同一页面在 `_Sidebar.md`、正文链接、`_META.md` 中必须使用完全相同的名称（文件名去掉 .md）。
+- 分级目录名（grade slug）：ASCII 小写短横线。
+- 页面文件名：主题名，不带分级前缀。
+- `page/` 内 basename 必须唯一（预览与发布都会拍平）。
+- 同一页面在 `_Sidebar.md`、正文链接、`_META.md`、`_meta/*.yaml` 的 page 字段中一致。
 
 ## Home.md 的职责
 
-- 一句话说明知识库讲什么、给谁看。
-- 给出分级学习地图：每级的目标、主要页面、完成标准。
-- 说明本知识库采用的分级方案与依据（按任务自定，见 references/level-framework.md）。
-- 链接已有页面；未生成的分级标注"规划中"。
+- 一句话说明讲什么、给谁看、采用哪种 wiki_mode。
+- 给出知识地图：分级/阶段目标、主要页面、完成标准。
+- 说明分级与 mode 的 source/completeness policy。
+- 链接已有页面；未生成的分级标注“规划中”。
 
 ## _Sidebar.md 的职责与格式
 
@@ -35,25 +38,22 @@ page/
 
 **入门（basics）**
 - [[Git是什么与第一次提交]]
-- [[安装与配置]]
-
-**实战（practice）**
-- [[分支与合并]]
 
 **规划中**
-- 进阶（advanced）
+- 实战（practice）
 ```
 
-规则：侧边栏反映真实完成状态；"规划中"只列分级名，不创建死链。
+规则：侧边栏反映真实完成状态；“规划中”只列分级名，不创建死链。
 
 ## _META.md 的职责
 
-记录 Wiki 状态，方便下次更新快速盘点。包含：
+至少包含：
 
-- 领域名称、目标读者。
-- 分级方案与映射说明。
-- 页面清单：页面名、所属分级目录、状态（已完成/规划中）、最后更新日期。
-- changelog：日期、变更内容、来源。
+- 领域名称、目标读者、wiki_mode、audience。
+- 各项 policy：source_policy、source_hierarchy、terminology_policy、evidence_policy、figure_policy、completeness_policy、external_knowledge_policy。
+- `last_source_audit`、`last_coverage_audit`。
+- 页面清单：页面名、所属分级目录、状态、最后更新日期。
+- changelog。
 
 示例：
 
@@ -62,27 +62,36 @@ page/
 
 - 领域：Git
 - 读者：零基础
-- 分级：按任务自定（basics → practice → advanced）
-- 当前进度：basics 已完成，practice 规划中
+- wiki_mode: technical-tutorial
+- audience: 零基础开发者
+- source_policy: official docs first
+- source_hierarchy: official > trusted web > general
+- terminology_policy: preserve canonical English
+- evidence_policy: every important claim traceable
+- figure_policy: official figure first, else Mermaid
+- completeness_policy: minimum viable learning path
+- external_knowledge_policy: merge update, never silently replace
+- last_source_audit: 2026-01-02
+- last_coverage_audit: 2026-01-02
 
 ## 页面清单
 - [x] basics/Git是什么与第一次提交（2026-01-01）
-- [ ] practice/分支与合并
 
 ## changelog
-- 2026-01-01：创建 Home、_Sidebar、basics 页面。
+- 2026-01-02：升级为 evidence-grounded mode。
 ```
 
 ## 链接规则
 
-- 正文内互链优先使用 `[[页面名]]`，页面名 = 文件名去 .md。
-- 每页都要有"上一页 / 下一页 / 返回 Home"。
-- 不创建指向不存在页面的链接；规划中分级只出现在 Home 和 _Sidebar 的"规划中"区域。
-- 外部资料使用普通 Markdown 链接，注明访问日期。
+- 互链用 `[[页面名]]`，页面名 = 文件名去 .md。
+- 每页有“上一页 / 下一页 / 返回 Home”。
+- 不创建指向不存在页面的链接。
+- 外部资料用普通 Markdown 链接，注明访问日期。
 
-## 更新规则（持续更新）
+## Provenance 与更新规则
 
+- 页面级 `## 更新日志` 保留。
+- section-level provenance 标签见 references/provenance.md（source-derived / agent-explanation / external-research / user-correction / derived）。
 - 已有页面用合并更新，不整页覆盖。
-- 每次更新在页面底部"更新日志"追加一行，并在 `_META.md` changelog 追加一条。
-- 更新后重新检查 `_Sidebar.md` 完整性，避免孤立页面或死链。
-- 首次生成只生成最低一级导论；后续生成下一级前先确认上一级页面已完整。
+- 更新后在 `_META.md` changelog 追加一条，并更新 `last_verified`。
+- legacy 页面无 `_meta/` 证据时标 `provenance: legacy-unverified`，不删除。

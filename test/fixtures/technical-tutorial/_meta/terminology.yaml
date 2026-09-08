@@ -1,0 +1,11 @@
+terms:
+- id: T01
+  canonical_en: Example Protocol
+  zh: 示例协议
+  abbreviation: null
+  aliases: []
+  definition: 一个示例协议。
+  source_definition: 官方定义。
+  first_occurrence: page/basics/示例页面.md
+  related_concepts:
+  - C01

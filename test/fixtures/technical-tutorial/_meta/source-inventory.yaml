@@ -1,0 +1,10 @@
+items:
+- id: S01
+  item_type: section
+  item_name: 示例协议
+  source: 官方文档
+  locator: section 2
+  expected_page: page/basics/示例页面.md
+  status: covered
+  expect_keywords:
+  - Example Protocol

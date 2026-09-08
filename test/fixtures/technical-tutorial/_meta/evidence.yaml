@@ -1,0 +1,11 @@
+evidence:
+- id: E01
+  source_type: official_documentation
+  source_title: 官方文档
+  source_url: https://example.com/docs
+  source_locator: section 2
+  accessed_at: '2026-01-02'
+  claim_ids:
+  - C01
+  figure_ids: []
+  confidence: high

@@ -1,0 +1,10 @@
+evidence:
+- id: E01
+  source_type: official_documentation
+  source_title: 实验室安全守则
+  source_locator: 第 1 节
+  accessed_at: '2026-01-02'
+  claim_ids:
+  - C01
+  figure_ids: []
+  confidence: high

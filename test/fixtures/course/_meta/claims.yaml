@@ -1,0 +1,10 @@
+claims:
+- id: C01
+  claim: 选择压力过高可能导致过早收敛。
+  claim_type: source-derived
+  concept_ids:
+  - C01
+  evidence_ids:
+  - E01
+  status: verified
+  confidence: high
