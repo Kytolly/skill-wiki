@@ -1,5 +1,5 @@
 ---
-name: skill-tutorial-wiki
+name: skill-wiki
 description: 多模式、证据锚定的学习与文档 Wiki 构建器。搜集互联网/课程/项目/实验/API 知识，生成新手友好的中文分级讲义，并以 GitHub Wiki + 本地 mkdocs 预览方式组织成可导航、可追溯、可持续更新的文档站点。支持 course / project-docs / lab-handbook / technical-tutorial / research-kb / api-docs / experiment-kb / onboarding / policy-procedure / custom 等模式，落地 Claim→Evidence→Source 追踪、术语/图片/公式对象、知识图谱与覆盖度审计。适用于构建或更新领域知识库、课程讲义、项目文档、实验室守则、技术教程、研究知识库等场景。
 whenToUse: 当用户想建立一个领域的教程/讲义/wiki/知识库，或对已有 wiki 做增量更新、补全某个分级、更新过时内容；或需要证据可追溯、来源分级、术语保留、配图与公式规范、覆盖度审计时使用。
 metadata:
